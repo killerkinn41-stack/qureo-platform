@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة QUREO التعليمية - بنك الأسئلة والشباتر</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --answer-bg: #f0fdf4;
+            --answer-text: #166534;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-bg: #334155;
+            --border-color: #475569;
+            --answer-bg: #064e3b;
+            --answer-text: #6ee7b7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-hover);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+            border: 2px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border-radius: 10px;
+            margin-bottom: 25px;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary-color);
+        }
+
+        .chapter-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .chapter-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .question-item {
+            background-color: var(--secondary-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .btn-answer {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-answer:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .answer-box {
+            display: none;
+            margin-top: 10px;
+            padding: 12px;
+            background-color: var(--answer-bg);
+            color: var(--answer-text);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            border-right: 4px solid var(--primary-color);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <div class="container">
+        <header>
+            <h1>منصة QUREO التعليمية (بنك الأسئلة)</h1>
+            <button class="theme-toggle" onclick="toggleTheme()">الوضع الداكن</button>
+        </header>
+
+        <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن سؤال أو شابتر..." onkeyup="searchQuestions()">
+
+        <div id="chaptersContainer">
+            <!-- الشابتر الأول -->
+            <div class="chapter-card" data-chapter="الشابتر الأول أساسيات البرمجة">
+                <h2 class="chapter-title">الشابتر الأول: أساسيات البرمجة والخوارزميات</h2>
+                
+                <div class="question-item">
+                    <div class="question-text">س1: ما هي الخطوة الأولى والأساسية لحل أي مشكلة برمجية؟</div>
+                    <button class="btn-answer" onclick="toggleAnswer(this)">عرض الحل النموذجي</button>
+                    <div class="answer-box">الإجابة: تحليل المشكلة وتحديد المدخلات (Inputs) والمخرجات (Outputs) والعمليات المطلوبة بوضوح قبل كتابة الأكواد.</div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-text">س2: كيف يتم تكرار مجموعة من الأوامر برمجياً دون إعادة كتابتها؟</div>
+                    <button class="btn-answer" onclick="toggleAnswer(this)">عرض الحل النموذجي</button>
+                    <div class="answer-box">الإجابة: باستخدام الحلقات التكرارية (Loops) مثل حلقة For أو حلقة While لتنفيذ الكود عدة مرات بكفاءة.</div>
+                </div>
+            </div>
+
+            <!-- الشابتر الثاني -->
+            <div class="chapter-card" data-chapter="الشابتر الثاني الشروط والمتغيرات">
+                <h2 class="chapter-title">الشابتر الثاني: المتغيرات والجمل الشرطية</h2>
+                
+                <div class="question-item">
+                    <div class="question-text">س1: ما هو استخدام الجمل الشرطية (If-Else) في البرمجة؟</div>
+                    <button class="btn-answer" onclick="toggleAnswer(this)">عرض الحل النموذجي</button>
+                    <div class="answer-box">الإجابة: تُستخدم لاتخاذ قرارات برمجية بناءً على تحقق شرط معين، حيث يتم تنفيذ مسار برمجي إذا كان الشرط صحيحاً (True) ومسار آخر إذا كان خطأً (False).</div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-text">س2: ما هو المفهوم البرمجي لتخزين القيم واستخدامها لاحقاً؟</div>
+                    <button class="btn-answer" onclick="toggleAnswer(this)">عرض الحل النموذجي</button>
+                    <div class="answer-box">الإجابة: المتغيرات (Variables)، وهي عبارة عن حاويات في الذاكرة لتخزين البيانات النصية أو العددية.</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            جميع الحقوق محفوظة لمنصة ملك التعليمية © 2026
+        </footer>
+    </div>
+
+    <script>
+        function toggleAnswer(btn) {
+            const answerBox = btn.nextElementSibling;
+            if (answerBox.style.display === "block") {
+                answerBox.style.display = "none";
+                btn.textContent = "عرض الحل النموذجي";
+            } else {
+                answerBox.style.display = "block";
+                btn.textContent = "إخفاء الحل";
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.querySelector('.theme-toggle');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                btn.textContent = 'الوضع الفاتح';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                btn.textContent = 'الوضع الداكن';
+            }
+        }
+
+        function searchQuestions() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const chapters = document.querySelectorAll('.chapter-card');
+
+            chapters.forEach(chapter => {
+                const text = chapter.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    chapter.style.display = "block";
+                } else {
+                    chapter.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
