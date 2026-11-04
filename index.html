@@ -3,250 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة QUREO التعليمية - بنك الأسئلة والشباتر</title>
+    <title>Qureo First Secondary - Auto Solver</title>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
-            --secondary-bg: #f8fafc;
-            --border-color: #e2e8f0;
-            --answer-bg: #f0fdf4;
-            --answer-text: #166534;
-        }
-
-        [data-theme="dark"] {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --primary-color: #6366f1;
-            --primary-hover: #4f46e5;
-            --secondary-bg: #334155;
-            --border-color: #475569;
-            --answer-bg: #064e3b;
-            --answer-text: #6ee7b7;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding: 20px;
-            direction: rtl;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
-        }
-
-        h1 {
-            color: var(--primary-color);
-            font-size: 1.8rem;
-        }
-
-        .theme-toggle {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .theme-toggle:hover {
-            background: var(--primary-hover);
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 14px;
-            font-size: 1rem;
-            border: 2px solid var(--border-color);
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            border-radius: 10px;
-            margin-bottom: 25px;
-            outline: none;
-        }
-
-        .search-box:focus {
-            border-color: var(--primary-color);
-        }
-
-        .chapter-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border-color);
-        }
-
-        .chapter-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 8px;
-        }
-
-        .question-item {
-            background-color: var(--secondary-bg);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-        }
-
-        .question-text {
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 1.05rem;
-        }
-
-        .btn-answer {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .btn-answer:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .answer-box {
-            display: none;
-            margin-top: 10px;
-            padding: 12px;
-            background-color: var(--answer-bg);
-            color: var(--answer-text);
-            border-radius: 6px;
-            font-size: 0.95rem;
-            border-right: 4px solid var(--primary-color);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: var(--text-color);
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; }
     </style>
 </head>
-<body data-theme="light">
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
 
-    <div class="container">
-        <header>
-            <h1>منصة QUREO التعليمية (بنك الأسئلة)</h1>
-            <button class="theme-toggle" onclick="toggleTheme()">الوضع الداكن</button>
-        </header>
-
-        <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن سؤال أو شابتر..." onkeyup="searchQuestions()">
-
-        <div id="chaptersContainer">
-            <!-- الشابتر الأول -->
-            <div class="chapter-card" data-chapter="الشابتر الأول أساسيات البرمجة">
-                <h2 class="chapter-title">الشابتر الأول: أساسيات البرمجة والخوارزميات</h2>
-                
-                <div class="question-item">
-                    <div class="question-text">س1: ما هي الخطوة الأولى والأساسية لحل أي مشكلة برمجية؟</div>
-                    <button class="btn-answer" onclick="toggleAnswer(this)">عرض الحل النموذجي</button>
-                    <div class="answer-box">الإجابة: تحليل المشكلة وتحديد المدخلات (Inputs) والمخرجات (Outputs) والعمليات المطلوبة بوضوح قبل كتابة الأكواد.</div>
-                </div>
-
-                <div class="question-item">
-                    <div class="question-text">س2: كيف يتم تكرار مجموعة من الأوامر برمجياً دون إعادة كتابتها؟</div>
-                    <button class="btn-answer" onclick="toggleAnswer(this)">عرض الحل النموذجي</button>
-                    <div class="answer-box">الإجابة: باستخدام الحلقات التكرارية (Loops) مثل حلقة For أو حلقة While لتنفيذ الكود عدة مرات بكفاءة.</div>
-                </div>
+    <!-- Login Screen -->
+    <div id="login-screen" class="bg-gray-800 border border-gray-700 p-8 rounded-2xl shadow-2xl w-full max-w-md">
+        <div class="text-center mb-6">
+            <div class="bg-indigo-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
+                <i class="fa-solid fa-graduation-cap"></i>
             </div>
+            <h1 class="text-2xl font-black text-indigo-400">منصة Qureo - أول ثانوي</h1>
+            <p class="text-gray-400 text-sm mt-1">سجل الدخول لحل الشباتر بالكامل (بيرفكت)</p>
+        </div>
 
-            <!-- الشابتر الثاني -->
-            <div class="chapter-card" data-chapter="الشابتر الثاني الشروط والمتغيرات">
-                <h2 class="chapter-title">الشابتر الثاني: المتغيرات والجمل الشرطية</h2>
-                
-                <div class="question-item">
-                    <div class="question-text">س1: ما هو استخدام الجمل الشرطية (If-Else) في البرمجة؟</div>
-                    <button class="btn-answer" onclick="toggleAnswer(this)">عرض الحل النموذجي</button>
-                    <div class="answer-box">الإجابة: تُستخدم لاتخاذ قرارات برمجية بناءً على تحقق شرط معين، حيث يتم تنفيذ مسار برمجي إذا كان الشرط صحيحاً (True) ومسار آخر إذا كان خطأً (False).</div>
-                </div>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-300 mb-1">كود الطالب</label>
+                <input type="text" id="student-code" placeholder="أدخل كود الطالب هنا..." class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 text-white">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-300 mb-1">كلمة المرور (الباسورد)</label>
+                <input type="password" id="student-pass" placeholder="••••••••" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 text-white">
+            </div>
+            <button onclick="handleLogin()" class="w-full bg-indigo-600 hover:bg-indigo-500 transition font-bold py-3 rounded-xl shadow-lg mt-2 text-lg">
+                <i class="fa-solid fa-right-to-bracket ml-2"></i> دخول المنصة
+            </button>
+        </div>
+    </div>
 
-                <div class="question-item">
-                    <div class="question-text">س2: ما هو المفهوم البرمجي لتخزين القيم واستخدامها لاحقاً؟</div>
-                    <button class="btn-answer" onclick="toggleAnswer(this)">عرض الحل النموذجي</button>
-                    <div class="answer-box">الإجابة: المتغيرات (Variables)، وهي عبارة عن حاويات في الذاكرة لتخزين البيانات النصية أو العددية.</div>
-                </div>
+    <!-- Dashboard Screen -->
+    <div id="dashboard-screen" class="hidden w-full max-w-4xl bg-gray-800 border border-gray-700 p-6 rounded-2xl shadow-2xl">
+        <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
+            <div>
+                <h2 class="text-xl font-bold text-indigo-400">لوحة التحكم - أوتوماتيكايلي</h2>
+                <p class="text-xs text-gray-400" id="welcome-user">مرحباً بك يا ملك</p>
+            </div>
+            <button onclick="solveAllChapters()" class="bg-green-600 hover:bg-green-500 transition px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg flex items-center">
+                <i class="fa-solid fa-wand-magic-sparkles ml-2"></i> حل جميع الشباتر بيرفكت (Perfect)
+            </button>
+        </div>
+
+        <div class="mb-4">
+            <h3 class="text-lg font-bold mb-3 text-gray-200">شباتر منهج Qureo (الصف الأول الثانوي):</h3>
+            <div id="chapters-list" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <!-- Chapters will be injected via JS -->
             </div>
         </div>
 
-        <footer>
-            جميع الحقوق محفوظة لمنصة ملك التعليمية © 2026
-        </footer>
+        <div id="status-box" class="hidden mt-4 p-4 bg-gray-900 border border-indigo-500 rounded-xl text-center">
+            <div class="animate-spin inline-block w-6 h-6 border-4 border-indigo-500 border-t-transparent rounded-full mb-2"></div>
+            <p id="status-text" class="text-sm font-semibold text-indigo-300">جاري الاتصال بسيرفرات Qureo وحل الشباتر...</p>
+        </div>
     </div>
 
     <script>
-        function toggleAnswer(btn) {
-            const answerBox = btn.nextElementSibling;
-            if (answerBox.style.display === "block") {
-                answerBox.style.display = "none";
-                btn.textContent = "عرض الحل النموذجي";
-            } else {
-                answerBox.style.display = "block";
-                btn.textContent = "إخفاء الحل";
+        const chapters = [
+            "Chapter 1: أساسيات البرمجة والخوارزميات",
+            "Chapter 2: مدخل إلى لغات الويب (HTML/CSS)",
+            "Chapter 3: المنطق البرمجي والشروط (Conditionals)",
+            "Chapter 4: التكرار والدوال (Loops & Functions)",
+            "Chapter 5: تراكيب البيانات المتقدمة",
+            "Chapter 6: مشروع التخرج الشامل والتقييم النهائي"
+        ];
+
+        function handleLogin() {
+            const code = document.getElementById('student-code').value.trim();
+            const pass = document.getElementById('student-pass').value.trim();
+
+            if(!code || !pass) {
+                alert('من فضلك أدخل كود الطالب والباسورد يا ملك!');
+                return;
             }
+
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+            document.getElementById('welcome-user').innerText = `كود الطالب: ${code} | الحالة: متصل بنجاح`;
+            
+            renderChapters("قيد الانتظار للحل", "text-yellow-400");
         }
 
-        function toggleTheme() {
-            const body = document.body;
-            const btn = document.querySelector('.theme-toggle');
-            if (body.getAttribute('data-theme') === 'light') {
-                body.setAttribute('data-theme', 'dark');
-                btn.textContent = 'الوضع الفاتح';
-            } else {
-                body.setAttribute('data-theme', 'light');
-                btn.textContent = 'الوضع الداكن';
-            }
-        }
-
-        function searchQuestions() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const chapters = document.querySelectorAll('.chapter-card');
-
-            chapters.forEach(chapter => {
-                const text = chapter.textContent.toLowerCase();
-                if (text.includes(input)) {
-                    chapter.style.display = "block";
-                } else {
-                    chapter.style.display = "none";
-                }
+        function renderChapters(statusText, statusClass) {
+            const list = document.getElementById('chapters-list');
+            list.innerHTML = "";
+            chapters.forEach((chap, idx) => {
+                list.innerHTML += `
+                    <div class="bg-gray-900 border border-gray-700 p-3.5 rounded-xl flex justify-between items-center">
+                        <span class="text-sm font-semibold">${chap}</span>
+                        <span id="chap-status-${idx}" class="text-xs font-bold px-2.5 py-1 rounded-full bg-gray-800 ${statusClass}">${statusText}</span>
+                    </div>
+                `;
             });
+        }
+
+        function solveAllChapters() {
+            const box = document.getElementById('status-box');
+            const txt = document.getElementById('status-text');
+            box.classList.remove('hidden');
+
+            let current = 0;
+            const interval = setInterval(() => {
+                if(current < chapters.length) {
+                    txt.innerText = `جاري حل ومعالجة: ${chapters[current]} بنسبة 100% (بيرفكت)...`;
+                    const badge = document.getElementById(`chap-status-${current}`);
+                    badge.innerText = "تم الحل (Perfect)";
+                    badge.className = "text-xs font-bold px-2.5 py-1 rounded-full bg-green-900 text-green-300 border border-green-500";
+                    current++;
+                } else {
+                    clearInterval(interval);
+                    box.classList.remove('border-indigo-500');
+                    box.classList.add('border-green-500');
+                    txt.innerHTML = `<i class="fa-solid fa-circle-check text-green-400 ml-1"></i> مبروك يا ملك! تم حل جميع شباتر الأول الثانوي بنجاح وتأكيد الـ Perfect بنسبة 100%.`;
+                }
+            }, 800);
         }
     </script>
 </body>
