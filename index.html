@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qureo First Secondary - Auto Solver</title>
-    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <!-- Dashboard Screen -->
+    <!-- Dashboard Screen (Hidden initially) -->
     <div id="dashboard-screen" class="hidden w-full max-w-4xl bg-gray-800 border border-gray-700 p-6 rounded-2xl shadow-2xl">
         <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
             <div>
@@ -82,6 +82,7 @@
                 return;
             }
 
+            // Show Dashboard
             document.getElementById('login-screen').classList.add('hidden');
             document.getElementById('dashboard-screen').classList.remove('hidden');
             document.getElementById('welcome-user').innerText = `كود الطالب: ${code} | الحالة: متصل بنجاح`;
